@@ -13,3 +13,5 @@
 - [babel 教程 专栏](https://www.zhihu.com/column/c_1402924598862778368)
 - [前端工程师可以用编译原理做什么？ - WangHaoyu 的回答 - 知乎](https://www.zhihu.com/question/274357154/answer/2297330416)
 - [Babel 教程 - 姜瑞涛的官方网站](https://www.jiangruitao.com/babel/)
+
+- [Babel7 相关] (https://github.com/CommanderXL/Biu-blog/issues/52)

@@ -1,0 +1,73 @@
+<html>
+  <style>
+    .textarea {
+      width: 400px;
+      min-height: 20px;
+      max-height: 300px;
+      _height: 120px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 3px;
+      outline: 0;
+      border: 1px solid #a0b3d6;
+      font-size: 12px;
+      line-height: 24px;
+      padding: 2px;
+      word-wrap: break-word;
+      overflow-x: hidden;
+      overflow-y: auto;
+      border-color: rgba(82, 168, 236, 0.8);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+      position: relative;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    .placeholder:before {
+      content: attr(data-placeholder);
+      line-height: 30px;
+      position: absolute;
+      left: 5px;
+      top: 0;
+      z-index: 1;
+    }
+  </style>
+  <p>需求 实现一个输入框，高度可以随着输入文字的增加而自动增高，类似于微信输入 输入为空时，显示placeholder 字数限制maxlength</p>
+  方法2：div设置contentEditable为true后，输入或删除内容时，其高度本身就会随着内容的变化而变化，我们需要解决的问题只是在输入过程中光标的位置问题；兼容性：IE11及其他高级浏览器
+  <div class="textarea placeholder" contenteditable="true" data-placeholder="请输入内容8..." data-length="1000"><br /></div>
+  <script>
+    var oInputBox = document.querySelector('.textarea')
+    oInputBox.oninput = oInputBox.onpropertychange = function (ev) {
+      var innterStr = oInputBox.innerText
+      var _this = this
+
+      // placeholder
+      if (innterStr.length == 0) {
+        _this.classList.add('placeholder')
+      } else {
+        _this.classList.remove('placeholder')
+      }
+      // maxlength
+      var len = parseInt(_this.getAttribute('data-length'))
+      if (innterStr.length > len) {
+        oInputBox.innerText = innterStr.substring(0, len)
+      }
+
+      // div innerText重新赋值之后的光标问题
+
+      if (navigator.userAgent.indexOf('MSIE') > -1) {
+        var range = document.selection.createRange()
+        _this.last = range
+        range.moveToElementText(_this)
+        range.select()
+        document.selection.empty() //取消选中
+      } else {
+        var range = document.createRange()
+        range.selectNodeContents(_this)
+        range.collapse(false)
+        var sel = window.getSelection()
+        sel.removeAllRanges()
+        sel.addRange(range)
+      }
+    }
+  </script>
+</html>
