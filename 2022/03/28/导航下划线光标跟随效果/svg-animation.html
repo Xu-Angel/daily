@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <style>
+      nav {
+        position: absolute;
+        overflow: hidden;
+      }
+      nav ul {
+        list-style: none;
+        padding: 0;
+      }
+      nav li {
+        float: left;
+        padding: 5px 0;
+        width: 80px;
+        text-align: center;
+        position: relative;
+      }
+      li svg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #svg-underline {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
+      ul {
+        -webkit-tap-highlight-color: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li id="item1">
+          首页
+          <svg>
+            <rect id="svgitem1" x="0" y="0" width="100%" height="100%" fill="transparent"></rect>
+          </svg>
+        </li>
+        <li id="item-2">
+          产品
+          <svg>
+            <rect id="svgitem2" x="0" y="0" width="100%" height="100%" fill="transparent"></rect>
+          </svg>
+        </li>
+        <li id="item-3">
+          关于
+          <svg>
+            <rect id="svgitem3" x="0" y="0" width="100%" height="100%" fill="transparent"></rect>
+          </svg>
+        </li>
+        <li id="item-4">
+          帮助
+          <svg>
+            <rect id="svgitem4" x="0" y="0" width="100%" height="100%" fill="transparent"></rect>
+          </svg>
+        </li>
+      </ul>
+      <svg id="svg-underline" version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" height="1">
+        <rect id="nav-underline" x="0" y="0" width="80" height="2" stroke="black" stroke-width="2"></rect>
+        <animate xlink:href="#nav-underline" attributeName="x" to="0" dur=".2s" begin="svgitem1.mouseenter" fill="freeze"></animate>
+        <animate xlink:href="#nav-underline" attributeName="x" to="80" dur=".2s" begin="svgitem2.mouseenter" fill="freeze"></animate>
+        <animate xlink:href="#nav-underline" attributeName="x" to="160" dur=".2s" begin="svgitem3.mouseenter" fill="freeze"></animate>
+        <animate xlink:href="#nav-underline" attributeName="x" to="240" dur=".2s" begin="svgitem4.mouseenter" fill="freeze"></animate>
+      </svg>
+    </nav>
+  </body>
+</html>

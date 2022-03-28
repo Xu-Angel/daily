@@ -1,0 +1,58 @@
+<html>
+  <style>
+    nav {
+      position: absolute;
+      overflow: hidden;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    nav li {
+      float: left;
+      padding: 5px 24px;
+      text-align: center;
+      position: relative;
+    }
+    .underline {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 80px;
+      height: 1px;
+      background-color: black;
+      transition: transform 0.2s linear, width 0.2s linear;
+    }
+    nav {
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+  <body>
+    <nav>
+      <ul>
+        <li id="item1">首页</li>
+        <li id="item-2">产品</li>
+        <li id="item-3">关于我们</li>
+        <li id="item-4">帮助</li>
+      </ul>
+      <div class="underline" style="transform: translateX(80px); width: 80px"></div>
+    </nav>
+    <script>
+      !(function () {
+        // let q = document.querySelector;
+        let $line = document.querySelector('.underline')
+        document.querySelector('nav').onmouseover = function (event) {
+          let node = event.target
+          if (node.nodeName === 'LI') {
+            let left = node.getBoundingClientRect().left
+            if (node.offsetParent) {
+              left -= node.offsetParent.getBoundingClientRect().left
+            }
+            $line.style.transform = `translateX(${left}px)`
+            $line.style.width = node.clientWidth + 'px'
+          }
+        }
+      })()
+    </script>
+  </body>
+</html>
