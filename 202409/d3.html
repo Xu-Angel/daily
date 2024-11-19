@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>D3.js Subway Map Example</title>
+    <style>
+      .line {
+        fill: none;
+        stroke: #333;
+        stroke-width: 2px;
+      }
+      .station {
+        fill: #fff;
+        stroke: #333;
+        stroke-width: 2px;
+      }
+      text {
+        font-size: 12px;
+        font-family: sans-serif;
+        text-anchor: middle;
+      }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
+  <body>
+    <svg width="600" height="400"></svg>
+    <script>
+      // 创建SVG画布
+      var svg = d3.select('svg')
+
+      // 定义地铁线路数据
+      var lines = [
+        {
+          name: 'Line 1',
+          color: '#ff0000',
+          stations: [
+            { name: 'Station 1', x: 100, y: 100 },
+            { name: 'Station 2', x: 200, y: 100 },
+            { name: 'Station 3', x: 300, y: 100 },
+            { name: 'Station 4', x: 400, y: 100 },
+            { name: 'Station 5', x: 500, y: 100 },
+          ],
+        },
+        {
+          name: 'Line 2',
+          color: '#00ff00',
+          stations: [
+            { name: 'Station 6', x: 100, y: 300 },
+            { name: 'Station 7', x: 200, y: 300 },
+            { name: 'Station 8', x: 300, y: 300 },
+            { name: 'Station 9', x: 400, y: 300 },
+            { name: 'Station 10', x: 500, y: 300 },
+          ],
+        },
+      ]
+
+      // 绘制地铁线路
+      var line = d3
+        .line()
+        .x(function (d) {
+          return d.x
+        })
+        .y(function (d) {
+          return d.y
+        })
+      svg
+        .selectAll('.line')
+        .data(lines)
+        .enter()
+        .append('path')
+        .attr('class', 'line')
+        .attr('d', function (d) {
+          return line(d.stations)
+        })
+        .style('stroke', function (d) {
+          return d.color
+        })
+
+      // 绘制地铁站点
+      svg
+        .selectAll('.station')
+        .data(
+          d3.merge(
+            lines.map(function (d) {
+              return d.stations
+            })
+          )
+        )
+        .enter()
+        .append('circle')
+        .attr('class', 'station')
+        .attr('cx', function (d) {
+          return d.x
+        })
+        .attr('cy', function (d) {
+          return d.y
+        })
+        .attr('r', 5)
+        .style('fill', '#fff')
+        .style('stroke', '#333')
+        .style('stroke-width', '2px')
+      svg
+        .selectAll('.station-label')
+        .data(
+          d3.merge(
+            lines.map(function (d) {
+              return d.stations
+            })
+          )
+        )
+        .enter()
+        .append('text')
+        .attr('class', 'station-label')
+        .attr('x', function (d) {
+          return d.x
+        })
+        .attr('y', function (d) {
+          return d.y - 10
+        })
+        .text(function (d) {
+          return d.name
+        })
+    </script>
+  </body>
+</html>
